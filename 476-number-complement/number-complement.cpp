@@ -8,7 +8,10 @@ public:
             num>>=1;
         }
         reverse(begin(temp),end(temp));
-        long long ans = stoll(temp,nullptr,2);
+        long long ans = 0;
+        for(int i=0;i<temp.size();i++){
+            ans = ans*2 + temp[i]-'0';
+        }
         return ans;
     }
 };
