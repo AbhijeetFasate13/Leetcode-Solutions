@@ -10,19 +10,19 @@
 class Solution {
 public:
     int guessNumber(int n) {
-        long long low = 0, high = n*1ll + 1;
+        long long low = 0, high = n;
         long long ans=0;
-        while(high-low>=1){
+        while(high-low>=0){
             long long mid = low + (high-low)/2;
             if(guess(mid)==0){
                 ans= mid;
                 break;
             }
             else if(guess(mid)==1){
-                low = mid;
+                low = mid+1;
             }
             else{
-                high = mid;
+                high = mid-1;
             }
         }
         return ans;
