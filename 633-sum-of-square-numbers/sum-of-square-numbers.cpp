@@ -1,14 +1,13 @@
 class Solution {
 public:
-    bool isSquare(int c){
-        if(c<0)return false;
-        int k = sqrt(c);
-        return k*k==c;
-    }
+    
     bool judgeSquareSum(int c) {
-        if(c%4==3)return false;
-        for(long long i=0;i*i<=c+1;i++){
-            if(isSquare(c-i*i))return true;
+        long long l = 0, r = sqrt(c);
+        while(l<=r){
+            long long sum = l*l + r*r;
+            if(sum==c)return true;
+            else if(sum<c)l++;
+            else r--;
         }
         return false;
     }
