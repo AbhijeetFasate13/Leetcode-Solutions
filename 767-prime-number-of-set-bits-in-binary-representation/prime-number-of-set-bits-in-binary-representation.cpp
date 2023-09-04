@@ -1,19 +1,19 @@
 class Solution {
     vector<int>primes;
 public:
-    Solution():primes(1e6+5,1){};
-    void sieve(){
+    void sieve(int n){
+        primes.resize(n+1,1);
         primes[0]=primes[1]=0;
-        for(int i=2;i*i<1e6+5;i++){
+        for(int i=2;i*i<n+1;i++){
             if(primes[i]){
-                for(int j=i*i;j<1e6+5;j+=i){
+                for(int j=i*i;j<n+1;j+=i){
                     primes[j]=0;
                 }
             }
         }
     }
     int countPrimeSetBits(int left, int right) {
-        sieve();
+        sieve(right+5);
         vector<int>dp(right+1);
         dp[0]=0;
         dp[1]=1;
