@@ -12,6 +12,7 @@ public:
                 vowels.push_back(i);
             }
         }
+        //can be optimised with count sort
         sort(begin(vowels),end(vowels));
         int ptr=0;
         for(int i=0;i<s.size();i++){
