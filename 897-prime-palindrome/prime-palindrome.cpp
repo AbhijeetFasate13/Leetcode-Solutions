@@ -13,7 +13,7 @@ public:
             string l = to_string(i);
             string r = l;
             reverse(begin(r),end(r));
-            long long check = stoll(l+r.substr(1));
+            int check = stoi(l+r.substr(1));
             if(check>=n and isprime(check)){
                 return check;
             }
