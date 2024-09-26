@@ -1,4 +1,4 @@
 # Write your MySQL query statement below
-SELECT Customers.name as Customers
-FROM Customers
-WHERE NOT EXISTS (SELECT Orders.customerId from Orders WHERE Orders.customerId = Customers.id)
+SELECT name AS Customers
+FROM Customers 
+WHERE id NOT IN (SELECT DISTINCT customerId from Orders)
