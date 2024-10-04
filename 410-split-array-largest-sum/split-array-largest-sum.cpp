@@ -1,16 +1,4 @@
 class Solution {
-    int calcUBound(vector<int>& nums, int k) {
-        int n = (int)nums.size();
-        int sum = accumulate(nums.begin(), nums.begin() + n - k + 1, 0);
-        int minSum = sum;
-        for (int i = n - k + 1; i < n; i++) {
-            sum += nums[i];
-            sum -= nums[i - n + k - 1];
-            minSum = min(minSum, sum);
-        }
-        return minSum;
-    }
-
 public:
     int splitArray(vector<int>& nums, int k) {
         int n = (int)nums.size();
