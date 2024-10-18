@@ -1,40 +1,56 @@
 class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
-        int n=nums.size();
-        vector<int>ans;
-        long long min=INT_MAX,min_ind=-1;
-        for(int i=0;i<n;i++){
-            if(abs(0-nums[i])<min){
-                min=abs(0-nums[i]);
-                min_ind=i;
+        vector<int> ans;
+        int ptr1 = -1, ptr2 = -1, n = (int)nums.size();
+        int mini = INT_MAX, minIdx = -1;
+        for (int i = 0; i < n; i++) {
+            if (abs(nums[i]) < mini) {
+                ptr1 = -1, ptr2 = -1;
+                mini = abs(nums[i]);
+                minIdx = i;
+                if (i < n - 1) {
+                    ptr2 = i + 1;
+                }
+                if (i > 0) {
+                    ptr1 = i - 1;
+                }
+                // break;
             }
         }
-        int low = min_ind,high=n;
-        if(min_ind!=n-1){
-            high=min_ind+1;
-        }
-        long long p,q;
-        while(low>=0 and high<=n-1){
-            p = nums[low]*nums[low],q=nums[high]*nums[high];
-            if(p>q){
-                ans.push_back(q);
-                high++;
+        ans.push_back(nums[minIdx] * nums[minIdx]);
+        if (ptr1 == -1 or ptr2 == -1) {
+            ans = nums;
+            for (auto& i : ans) {
+                i = i * i;
             }
-            else{
-                ans.push_back(p);
-                low--;
+            if (ptr2 == -1) {
+                reverse(ans.begin(), ans.end());
+            }
+            return ans;
+        } else if (ptr1 == -1 and ptr2 == -1) {
+            return {nums[0] * nums[0]};
+        }
+        while (ptr1 >= 0 and ptr2 <= n - 1) {
+            int a = nums[ptr1] * nums[ptr1], b = nums[ptr2] * nums[ptr2];
+            if (a <= b) {
+                ans.push_back(a);
+                ptr1--;
+            } else {
+                ans.push_back(b);
+                ptr2++;
             }
         }
-        while(low>=0){
-            p = nums[low]*nums[low];
-            ans.push_back(p);
-            low--;
+        while (ptr1 >= 0) {
+            int a = nums[ptr1] * nums[ptr1];
+            ans.push_back(a);
+            ptr1--;
         }
-        while(high<=n-1){
-            q=nums[high]*nums[high];
-            ans.push_back(q);
-            high++;
+        while (ptr2 <= n - 1) {
+            int b = nums[ptr2] * nums[ptr2];
+
+            ans.push_back(b);
+            ptr2++;
         }
         return ans;
     }
