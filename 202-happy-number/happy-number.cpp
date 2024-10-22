@@ -1,20 +1,27 @@
 class Solution {
+    int calc(int n) {
+        int sum = 0;
+        while (n) {
+            int rem = n % 10;
+            sum += rem * rem;
+            n /= 10;
+        }
+        return sum;
+    }
+
 public:
     bool isHappy(int n) {
-        set<int>already;
-        already.insert(n);
-        while(n!=1){
-            int temp = n;
-            int k=0;
-            while(temp){
-                k += (temp%10)*(temp%10);
-                temp/=10;
-            }
-            if(already.count(k)){
+        while (n % 10 == 0)
+            n /= 10;
+        int slow = n, fast = n;
+        while (fast != 1) {
+            slow = calc(slow);
+            fast = calc(fast);
+            fast = calc(fast);
+            // cout << slow << " " << fast << endl;
+            if (slow == fast) {
                 return false;
             }
-            already.insert(k);
-            n=k;
         }
         return true;
     }
