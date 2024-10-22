@@ -11,29 +11,19 @@
  * };
  */
 class Solution {
-    vector<int> ans;
-    void inOrder(TreeNode* root) {
-        if (!root)
-            return;
-        inOrder(root->left);
-        ans.push_back(root->val);
-        inOrder(root->right);
-    }
-    bool isSorted() {
-        int prev = ans[0];
-        for (int i = 1; i < (int)ans.size(); i++) {
-            if (prev < ans[i]) {
-                prev = ans[i];
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
+    long long prev;
 
 public:
+    Solution() { prev = LLONG_MIN; }
     bool isValidBST(TreeNode* root) {
-        inOrder(root);
-        return isSorted();
+        if (!root)
+            return true;
+        if (!isValidBST(root->left))
+            return false;
+        if (root->val <= prev) {
+            return false;
+        }
+        prev = root->val;
+        return isValidBST(root->right);
     }
 };
