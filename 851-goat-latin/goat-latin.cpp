@@ -23,11 +23,7 @@ public:
         int n = (int)words.size();
         for (int i = 0; i < n; i++) {
             if (!isVowel(words[i][0])) {
-                char temp = words[i][0];
-                for (int j = 0; j < (int)words[i].size() - 1; j++) {
-                    words[i][j] = words[i][j + 1];
-                }
-                words[i].back() = temp;
+                words[i] = words[i].substr(1) + words[i][0];
             }
             words[i] += "ma";
             for (int j = 0; j < i + 1; j++) {
