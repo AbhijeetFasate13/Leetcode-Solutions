@@ -1,15 +1,25 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        map<int, int> mp;
+        vector<pair<int, int>> given;
         int n = (int)nums.size();
         for (int i = 0; i < n; i++) {
-            int complement = target - nums[i];
-            if (mp.find(complement) != mp.end()) {
-                return {mp[complement], i};
-            }
-            mp[nums[i]] = i;
+            given.push_back({nums[i], i});
         }
-        return {}; 
+        sort(given.begin(), given.end());
+        int s = 0, e = n - 1;
+        vector<int> ans;
+        while (s < e) {
+            if (given[s].first + given[e].first > target) {
+                e--;
+            } else if (given[s].first + given[e].first < target) {
+                s++;
+            } else {
+                ans.push_back(given[s].second);
+                ans.push_back(given[e].second);
+                break;
+            }
+        }
+        return ans;
     }
 };
