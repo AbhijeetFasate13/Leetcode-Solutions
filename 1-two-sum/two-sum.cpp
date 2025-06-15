@@ -1,25 +1,22 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<pair<int, int>> given;
         int n = (int)nums.size();
-        for (int i = 0; i < n; i++) {
-            given.push_back({nums[i], i});
-        }
-        sort(given.begin(), given.end());
-        int s = 0, e = n - 1;
-        vector<int> ans;
+        vector<int> indices(n);
+        iota(indices.begin(), indices.end(), 0);
+        sort(indices.begin(), indices.end(),
+             [&](const int& a, const int& b) { return nums[a] < nums[b]; });
+        int s = 0, e = n - 1, sum;
         while (s < e) {
-            if (given[s].first + given[e].first > target) {
-                e--;
-            } else if (given[s].first + given[e].first < target) {
+            sum = nums[indices[s]] + nums[indices[e]];
+            if (sum == target) {
+                return {indices[s], indices[e]};
+            } else if (sum < target) {
                 s++;
             } else {
-                ans.push_back(given[s].second);
-                ans.push_back(given[e].second);
-                break;
+                e--;
             }
         }
-        return ans;
+        return {};
     }
 };
