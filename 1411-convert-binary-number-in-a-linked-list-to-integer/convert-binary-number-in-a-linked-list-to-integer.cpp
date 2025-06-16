@@ -14,13 +14,9 @@ public:
         int decimalNum = 0;
         ListNode* traverse = head;
         while (traverse) {
-            cout << traverse->val << " ";
-            if (traverse->val == 1) {
-                decimalNum += 1;
-            }
-            decimalNum *= 2;
+            decimalNum = decimalNum * 2 + traverse->val;
             traverse = traverse->next;
         }
-        return decimalNum / 2;
+        return decimalNum;
     }
 };
