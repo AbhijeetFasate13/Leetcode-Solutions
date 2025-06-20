@@ -1,26 +1,22 @@
 class Solution {
-    void rec(const int &level, const vector<int>& nums, vector<int>& currSubset, set<vector<int>>& allSubsets){
-        if(level == nums.size()){
-            if(allSubsets.find(currSubset)==allSubsets.end()){
-                allSubsets.insert(currSubset);
-            }
-            return;
+    void rec(int level, const vector<int>& nums, vector<int>& currSubset,
+             vector<vector<int>>& allSubsets) {
+        allSubsets.push_back(currSubset);
+        for (int i = level; i < nums.size(); i++) {
+            if (i > level and nums[i] == nums[i - 1])
+                continue;
+            currSubset.push_back(nums[i]);
+            rec(i + 1, nums, currSubset, allSubsets);
+            currSubset.pop_back();
         }
-        rec(level+1,nums,currSubset,allSubsets);
-        currSubset.push_back(nums[level]);
-        rec(level+1,nums,currSubset,allSubsets);
-        currSubset.pop_back();
     }
+
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        sort(begin(nums),end(nums));
-        set<vector<int>>solutionSet;
-        vector<int>container;
-        rec(0,nums,container,solutionSet);
-        vector<vector<int>>subsets;
-        for(const auto &i:solutionSet){
-            subsets.push_back(i);
-        }
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> subsets;
+        vector<int> container;
+        rec(0, nums, container, subsets);
         return subsets;
     }
 };
