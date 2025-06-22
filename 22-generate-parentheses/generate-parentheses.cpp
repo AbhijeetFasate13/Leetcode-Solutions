@@ -1,20 +1,22 @@
 class Solution {
-    vector<string>ans;
-    void helper(int l,int r,int n,string container){
-        if(l==n and r==n ){
-            ans.push_back(container);
+    void rec(int idx, int n, int sum, string curr, vector<string>& allSets) {
+        if (idx == 2*n) {
+            if (sum == 0) {
+                allSets.push_back(curr);
+            }
             return;
         }
-        if(l<n){
-            helper(l+1,r,n,container+'(');
-        }
-        if(r<n and r<l){
-            helper(l,r+1,n,container+')');
+        rec(idx + 1, n, sum + 1, curr + "(", allSets);
+        if (sum != 0) {
+            rec(idx + 1, n, sum - 1, curr + ")", allSets);
         }
     }
+
 public:
     vector<string> generateParenthesis(int n) {
-        helper(0,0,n,"");
-        return ans;
+        string curr;
+        vector<string> allSets;
+        rec(0, n, 0, curr, allSets);
+        return allSets;
     }
 };
