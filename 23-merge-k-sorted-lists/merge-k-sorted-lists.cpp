@@ -9,36 +9,33 @@
  * };
  */
 class Solution {
-public:
-    struct compare {
-        bool operator()(ListNode* a, ListNode* b) {
-            return a->val > b->val; 
-        }
+    class Compare {
+    public:
+        bool operator()(ListNode* a, ListNode* b) { return a->val > b->val; }
     };
-    
+
+public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        priority_queue<ListNode*, vector<ListNode*>, compare> pq;
-        for (auto& list : lists) {
-            if (list) {
-                pq.push(list);
-            }
+        priority_queue<ListNode*, vector<ListNode*>, Compare> pq;
+        for (const auto& i : lists) {
+            if(i)
+                pq.push(i);
         }
-        
-        ListNode* dummy = new ListNode(0);
+        ListNode* dummy = new ListNode();
         ListNode* temp = dummy;
-        
+        ListNode* peek;
         while (!pq.empty()) {
-            ListNode* curr = pq.top();
+            peek = pq.top();
             pq.pop();
-            temp->next = curr;
+            temp->next = peek;
             temp = temp->next;
-            if (curr->next) {
-                pq.push(curr->next);
+            if (peek and peek->next) {
+                peek = peek->next;
+                pq.push(peek);
             }
         }
-        
-        ListNode* result = dummy->next;
-        delete dummy; 
-        return result;
+        temp = dummy->next;
+        delete dummy;
+        return temp;
     }
 };
