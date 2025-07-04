@@ -1,15 +1,18 @@
 class Solution {
+    vector<int> dp;
+
 public:
+    Solution() { dp.resize(46, -1); }
     int climbStairs(int n) {
-        if (n <= 1) {
+        if (n == 0) {
             return 1;
         }
-        int a = 1, b = 1, c;
-        for (int i = 2; i <= n; i++) {
-            c = b + a;
-            a = b;
-            b = c;
+        if (n < 0) {
+            return 0;
         }
-        return c;
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+        return dp[n] = climbStairs(n - 1) + climbStairs(n - 2);
     }
 };
