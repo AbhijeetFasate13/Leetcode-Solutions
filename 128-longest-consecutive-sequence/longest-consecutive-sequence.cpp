@@ -1,26 +1,25 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        if(nums.empty())return 0;
-        map<int, int> mp;
+        if (nums.empty()) {
+            return 0;
+        }
+        int n = (int)nums.size();
+        unordered_set<int> hash;
         for (const auto& i : nums) {
-            mp[i]++;
+            hash.insert(i);
         }
-        int maxCount = 1;
-        for (auto it = mp.begin(); it != mp.end(); it++) {
-            int count = 1;
-            auto it1 = it;
-            it1++;
-            if (it1 == mp.end()) {
-                break;
+        int LCS = 0;
+        for (const auto& i : hash) {
+            if (hash.find(i - 1) != hash.end()) {
+                continue;
             }
-            while (it->first + 1 == it1->first and it1 != mp.end()) {
-                count++;
-                it++;
-                it1++;
+            int len = 1;
+            while (hash.find(i + len) != hash.end()) {
+                len++;
             }
-            maxCount = max(maxCount, count);
+            LCS = max(LCS, len);
         }
-        return maxCount;
+        return LCS;
     }
 };
