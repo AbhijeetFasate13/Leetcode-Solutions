@@ -6,12 +6,8 @@ public:
         int maxLen = 0;
         while (r < n) {
             freq[s[r]]++;
-            while (freq.size() < r - l + 1) {
-                char temp = s[l];
-                freq[temp]--;
-                if (freq[temp] == 0) {
-                    freq.erase(temp);
-                }
+            while (freq[s[r]] > 1) {
+                freq[s[l]]--;
                 l++;
             }
             maxLen = max(maxLen, r - l + 1);
