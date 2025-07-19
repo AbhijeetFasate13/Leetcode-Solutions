@@ -1,21 +1,13 @@
 class Solution {
-    int calcArea(const int& left, const int& right, const vector<int>& height) {
-        return (right - left) * min(height[left], height[right]);
-    }
-
 public:
     int maxArea(vector<int>& height) {
-        int n = (int)height.size();
-        int left = 0, right = n - 1;
-        int maxArea = calcArea(left, right, height);
-        while (left < right) {
-            if (height[left] < height[right]) {
-                left++;
-            } else {
-                right--;
-            }
-            maxArea = max(maxArea, calcArea(left, right, height));
+        int l = 0, r = height.size() - 1;
+        int maxWater = -1;
+        while (l < r) {
+            int minHeight = min(height[l], height[r]);
+            maxWater = max(maxWater, (r - l) * minHeight);
+            height[l] < height[r] ? l++ : r--;
         }
-        return maxArea;
+        return maxWater;
     }
 };
