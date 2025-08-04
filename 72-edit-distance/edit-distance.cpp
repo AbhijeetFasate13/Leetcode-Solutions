@@ -26,9 +26,7 @@ public:
                 } else {
                     // dp[i][j] = dp[i-1][j]     → delete word1[i-1]
                     // dp[i][j] = dp[i][j-1]     → insert word2[j-1] into word1
-                    // dp[i][j] = dp[i-1][j-1]   → replace word1[i-1] with
-                    // word2[j-1]
-
+                    // dp[i][j] = dp[i-1][j-1]   → replace word1[i-1] with word2[j-1]
                     dp[i][j] =
                         1 + min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});
                 }
