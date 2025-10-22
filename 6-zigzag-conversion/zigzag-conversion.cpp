@@ -11,13 +11,7 @@ public:
             for (int j = 0; j < s.size(); j++) {
                 if (isTraversed[j])
                     continue;
-                if (i == 0 and j % modder == 0) {
-                    zigZag.push_back(s[j]);
-                    isTraversed[j] = 1;
-                } else if (i == numRows - 1 and (2 * j) % modder == 0) {
-                    zigZag.push_back(s[j]);
-                    isTraversed[j] = 1;
-                } else if (j % modder == i or j % modder == modder - i) {
+                if (j % modder == i or j % modder == modder - i) {
                     zigZag.push_back(s[j]);
                     isTraversed[j] = 1;
                 }
