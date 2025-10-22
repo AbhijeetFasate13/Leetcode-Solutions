@@ -5,17 +5,17 @@ public:
             return s;
         }
         string zigZag;
-        vector<int> isTraversed(s.size());
         int modder = 2 * numRows - 2;
+        vector<string> rows(numRows);
+        int row;
+        for (int i = 0; i < s.size(); i++) {
+            row = i % modder;
+            if (row >= numRows)
+                row = modder - row;
+            rows[row].push_back(s[i]);
+        }
         for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < s.size(); j++) {
-                if (isTraversed[j])
-                    continue;
-                if (j % modder == i or j % modder == modder - i) {
-                    zigZag.push_back(s[j]);
-                    isTraversed[j] = 1;
-                }
-            }
+            zigZag += rows[i];
         }
         return zigZag;
     }
