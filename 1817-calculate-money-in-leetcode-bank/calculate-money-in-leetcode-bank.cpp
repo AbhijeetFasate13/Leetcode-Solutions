@@ -1,16 +1,13 @@
 class Solution {
 public:
     int totalMoney(int n) {
-        if (n < 7) {
-            return n * (n + 1) / 2;
+        int weeks = n / 7;
+        int days = n % 7;
+        int totalMoney = 28 * weeks + 7 * (weeks * (weeks - 1) / 2);
+        int start = weeks + 1;
+        for (int i = 0; i < days; i++) {
+            totalMoney += start + i;
         }
-        int groups = n / 7;
-        int sum = 28 * groups + 7 * (groups * (groups - 1)) / 2;
-        if (n % 7 != 0) {
-            for (int i = groups + 1; i < groups + 1 + n % 7; i++) {
-                sum += i;
-            }
-        }
-        return sum;
+        return totalMoney;
     }
 };
