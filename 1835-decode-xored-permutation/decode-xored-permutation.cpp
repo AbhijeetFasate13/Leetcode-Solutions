@@ -4,12 +4,10 @@ public:
         int x = 0;
         int n = encoded.size();
         for (int i = 1; i <= n + 1; i++) {
-            x ^= i;
-        }
-        for (int i = 0; i < n; i++) {
-            if (i & 1) {
+            if (i & 1 and i < n) {
                 x ^= encoded[i];
             }
+            x ^= i;
         }
         vector<int> decoded = {x};
         for (const int& i : encoded) {
