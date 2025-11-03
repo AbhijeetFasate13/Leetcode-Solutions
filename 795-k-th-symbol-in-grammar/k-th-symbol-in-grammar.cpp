@@ -4,12 +4,11 @@ public:
         if (n == 1 and k == 1) {
             return 0;
         }
-        int mid = (1 << (n - 1)) >> 1;
+        int mid = 1 << (n - 2);
         // cout << mid << endl;
         if (k <= mid) {
             return kthGrammar(n - 1, k);
-        } else {
-            return 1 - kthGrammar(n - 1, k - mid);
         }
+        return 1 - kthGrammar(n - 1, k - mid);
     }
 };
