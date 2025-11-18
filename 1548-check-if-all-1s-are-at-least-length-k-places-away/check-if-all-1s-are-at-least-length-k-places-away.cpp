@@ -1,22 +1,14 @@
 class Solution {
 public:
     bool kLengthApart(vector<int>& nums, int k) {
-        int len = 0;
         int n = nums.size();
-        bool seenOne = false;
+        int prev = -1e9;
         for (int i = 0; i < n; i++) {
-            if (nums[i] == 0) {
-                len++;
-            } else {
-                if(!seenOne){
-                    seenOne = true;
-                    len = 0;
-                    continue;
-                }
-                if (len < k) {
+            if (nums[i] == 1) {
+                if (i - prev - 1 < k) {
                     return false;
                 }
-                len = 0;
+                prev = i;
             }
         }
         return true;
