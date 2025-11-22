@@ -13,16 +13,16 @@ public:
                 for (int r = n - 1; r >= l + 2; r--) {
                     if (s[l] == s[r]) {
                         string pal(3, s[l]);
-                        // int count = 0;
+                        int count = 0;
                         for (int i = l + 1; i < r; i++) {
                             pal[1] = s[i];
                             if (unique.find(pal) == unique.end()) {
                                 unique.insert(pal);
-                                // count++;
+                                count++;
                             }
-                            // if (count == 26) {
-                            //     break;
-                            // }
+                            if (count == 26) {
+                                break;
+                            }
                         }
                         visited[s[l] - 'a']++;
                         break;
