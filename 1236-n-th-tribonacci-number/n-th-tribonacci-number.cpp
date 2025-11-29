@@ -1,15 +1,16 @@
 class Solution {
+    int dp[38];
+
 public:
+    Solution() { memset(dp, -1, sizeof(dp)); }
     int tribonacci(int n) {
-        if(n==0)return 0;
-        if(n<=2)return 1;
-        int a=0,b=1,c=1,d;
-        for(int i=3;i<=n;i++){
-           d = a + b + c;
-           a = b;
-           b = c;
-           c = d;
-        }
-        return d;
+        if (n == 0)
+            return 0;
+        if (n <= 2)
+            return 1;
+        if (dp[n] != -1)
+            return dp[n];
+        return dp[n] =
+                   tribonacci(n - 2) + tribonacci(n - 1) + tribonacci(n - 3);
     }
 };
