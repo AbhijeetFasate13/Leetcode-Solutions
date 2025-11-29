@@ -5,10 +5,12 @@ public:
         if (n == 1) {
             return 0;
         }
-        vector<int> dp(n + 1);
+        int a = 0, b = 0, c;
         for (int i = 2; i <= n; i++) {
-            dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+            c = min(b + cost[i - 1], a + cost[i - 2]);
+            a = b;
+            b = c;
         }
-        return dp[n];
+        return c;
     }
 };
