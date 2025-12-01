@@ -6,11 +6,15 @@ public:
         int maxLen = 0;
         while (r < n) {
             freq[s[r]]++;
-            while (freq[s[r]] > 1) {
+            if (r - l + 1 > freq.size()) {
                 freq[s[l]]--;
+                if (freq[s[l]] == 0) {
+                    freq.erase(s[l]);
+                }
                 l++;
             }
-            maxLen = max(maxLen, r - l + 1);
+            if (r - l + 1 == freq.size())
+                maxLen = max(maxLen, r - l + 1);
             r++;
         }
         return maxLen;
