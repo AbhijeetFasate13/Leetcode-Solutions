@@ -10,22 +10,16 @@ public:
                 cars += prev == 'R' ? 1 : prev == 'L' ? -1 : 0;
                 continue;
             }
-            if (prev == 'R' and curr == 'L') {
-                collisions += 2 + cars;
-                cars = 0;
-                prev = 'S';
-            } else if (prev == 'S' and curr == 'L') {
-                collisions += 1 + cars;
-                cars = 0;
-                prev = 'S';
-            } else if (prev == 'R' and curr == 'S') {
-                collisions += 1 + cars;
-                cars = 0;
+            bool RL = (prev == 'R' and curr == 'L');
+            bool SL = (prev == 'S' and curr == 'L');
+            bool RS = (prev == 'R' and curr == 'S');
+            if (RL or SL or RS) {
+                collisions += (RL ? 2 : 1) + cars;
                 prev = 'S';
             } else {
                 prev = curr;
-                cars = 0;
             }
+            cars = 0;
         }
         return collisions;
     }
