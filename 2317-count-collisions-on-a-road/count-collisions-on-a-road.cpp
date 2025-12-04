@@ -1,26 +1,18 @@
 class Solution {
 public:
     int countCollisions(string directions) {
-        char prev = directions[0];
-        int cars = 0;
+        int n = directions.size();
+        int l = 0, r = n - 1;
+        while (l < n and directions[l] == 'L')
+            l++;
+        while (r >= 0 and directions[r] == 'R')
+            r--;
         int collisions = 0;
-        for (int i = 1; i < directions.size(); i++) {
-            char curr = directions[i];
-            if (prev == curr) {
-                cars += prev == 'R' ? 1 : prev == 'L' ? -1 : 0;
-                continue;
+        if (l <= r)
+            for (int i = l; i <= r; i++) {
+                if (directions[i] != 'S')
+                    collisions++;
             }
-            bool RL = (prev == 'R' and curr == 'L');
-            bool SL = (prev == 'S' and curr == 'L');
-            bool RS = (prev == 'R' and curr == 'S');
-            if (RL or SL or RS) {
-                collisions += (RL ? 2 : 1) + cars;
-                prev = 'S';
-            } else {
-                prev = curr;
-            }
-            cars = 0;
-        }
         return collisions;
     }
 };
