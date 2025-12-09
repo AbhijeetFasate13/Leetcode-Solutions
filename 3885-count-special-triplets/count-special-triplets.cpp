@@ -6,12 +6,17 @@ class Solution {
         int count = 0;
         for (int i = 0; i < m; i++) {
             int val = tripletJ[i];
+            if (val < tripletIAndK[0])
+                continue;
+            if (val > tripletIAndK.back())
+                break;
             long long int possibleIs =
                 upper_bound(begin(tripletIAndK), end(tripletIAndK), val - 1) -
                 tripletIAndK.begin();
             long long int possibleKs =
                 tripletIAndK.end() -
                 lower_bound(begin(tripletIAndK), end(tripletIAndK), val + 1);
+
             count = ((possibleIs * possibleKs) % mod + count) % mod;
         }
         return count % mod;
