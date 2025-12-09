@@ -3,7 +3,7 @@ class Solution {
     int calculateTriplets(const vector<int>& tripletIAndK,
                           const vector<int>& tripletJ) {
         int n = tripletIAndK.size(), m = tripletJ.size();
-        long long int count = 0;
+        int count = 0;
         for (int i = 0; i < m; i++) {
             int val = tripletJ[i];
             long long int possibleIs =
@@ -12,9 +12,7 @@ class Solution {
             long long int possibleKs =
                 tripletIAndK.end() -
                 lower_bound(begin(tripletIAndK), end(tripletIAndK), val + 1);
-            count = (((possibleIs % mod) * (possibleKs % mod)) % mod +
-                     count % mod) %
-                    mod;
+            count = ((possibleIs * possibleKs) % mod + count) % mod;
         }
         return count % mod;
     }
