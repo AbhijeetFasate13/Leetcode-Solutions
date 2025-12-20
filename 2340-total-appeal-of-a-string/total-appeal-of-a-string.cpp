@@ -17,8 +17,15 @@ class Solution {
 public:
     long long appealSum(string s) {
         long long appeal = 0;
+        vector<int> charIsPresent(26);
+        for (const char& c : s) {
+            charIsPresent[c - 'a']++;
+        }
         for (int i = 0; i < 26; i++) {
-            appeal += contributionOf((char)(i + 'a'), s);
+            char c = (char)(i + 'a');
+            if (!charIsPresent[i])
+                continue;
+            appeal += contributionOf(c, s);
         }
         return appeal;
     }
