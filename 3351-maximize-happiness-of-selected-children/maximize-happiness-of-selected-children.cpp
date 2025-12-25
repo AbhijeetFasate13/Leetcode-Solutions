@@ -7,8 +7,7 @@ public:
         for (int i = 0; i < k; i++) {
             if (happiness[i] + decrement <= 0)
                 break;
-            ans += happiness[i] + decrement;
-            decrement--;
+            ans += happiness[i] + decrement--;
         }
         return ans;
     }
