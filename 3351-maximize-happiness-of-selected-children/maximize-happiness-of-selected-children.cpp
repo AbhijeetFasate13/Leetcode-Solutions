@@ -1,16 +1,15 @@
 class Solution {
 public:
     long long maximumHappinessSum(vector<int>& happiness, int k) {
-        priority_queue<int> pq(happiness.begin(), happiness.end());
-        int penalty = 0;
-        long long happinessSum = 0;
-        while (k--) {
-            happinessSum += pq.top() - penalty;
-            pq.pop();
-            penalty++;
-            if (pq.top() - penalty <= 0)
-                break;
+        int decrement = 0;
+        sort(begin(happiness), end(happiness), greater<int>());
+        long long ans = 0;
+        for (int i = 0; i < k; i++) {
+            if (happiness[i] + decrement <= 0)
+                continue;
+            ans += happiness[i] + decrement;
+            decrement--;
         }
-        return happinessSum;
+        return ans;
     }
 };
