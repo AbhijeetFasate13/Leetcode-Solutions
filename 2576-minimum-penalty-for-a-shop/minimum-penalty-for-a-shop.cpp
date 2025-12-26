@@ -1,23 +1,18 @@
 class Solution {
 public:
     int bestClosingTime(string customers) {
-        int n = customers.size();
-        vector<int> prefixY(n + 1), prefixN(n + 1);
-        for (int i = 1; i <= n; i++) {
-            prefixY[i] = prefixY[i - 1] + (customers[i-1] == 'Y');
-            prefixN[i] = prefixN[i - 1] + (customers[i-1] == 'N');
-        }
-        int minPenalty = prefixY[n] - prefixY[0], minIdx = 0;
-        for (int i = 1; i <= n; i++) {
-            int lossOfBusinessDueToEarlyClose = prefixY[n] - prefixY[i];
-            int lossOfBusinessDueToLateClose = prefixN[i - 1];
-            if (minPenalty >
-                lossOfBusinessDueToEarlyClose + lossOfBusinessDueToLateClose) {
-                minPenalty = lossOfBusinessDueToEarlyClose +
-                             lossOfBusinessDueToLateClose;
-                minIdx = i;
+        // if we close at ith hour every N i will give -1
+        // but, if we add +1 (meaning good business) for every Y then
+        // we can look four first lowest dip
+
+        int score = 0, maxScore = 0, bestHour = -1;
+        for (int i = 0; i < customers.size(); i++) {
+            score += (customers[i] == 'Y' ? 1 : -1);
+            if (score > maxScore) {
+                maxScore = score;
+                bestHour = i;
             }
         }
-        return minIdx;
+        return bestHour + 1;
     }
 };
