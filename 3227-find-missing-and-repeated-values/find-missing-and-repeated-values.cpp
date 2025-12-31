@@ -1,37 +1,27 @@
 class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
-        int n = (int)grid.size();
-        vector<int> flat(n * n);
-        int ptr = 0;
-        int sum = 0;
-        for (const auto& i : grid) {
-            for (const auto& j : i) {
-                flat[ptr++] = j;
-                sum += j;
+        int n = grid.size();
+        vector<int> ans = {-1, -1};
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                while (i * n + j + 1 != grid[i][j] and
+                       grid[i][j] !=
+                           grid[(grid[i][j] - 1) / n][(grid[i][j] - 1) % n]) {
+                    swap(grid[i][j],
+                         grid[(grid[i][j] - 1) / n][(grid[i][j] - 1) % n]);
+                }
             }
         }
-        ptr = 0;
-        int flag;
-        vector<int> ans(2);
-        while (ptr != n * n) {
-            if (flat[ptr] == ptr + 1)
-                continue;
-            flag = 0;
-            while (flat[ptr] != ptr + 1) {
-                if (flat[ptr] == flat[flat[ptr] - 1]) {
-                    ans[0] = flat[ptr];
-                    flag = 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] != i * n + j + 1) {
+                    ans[0] = grid[i][j];
+                    ans[1] = i * n + j + 1;
                     break;
                 }
-                swap(flat[ptr], flat[flat[ptr] - 1]);
             }
-            if (flag)
-                break;
-            ptr++;
         }
-        ans[1] = ((n * n) * ((n * n) + 1)) / 2 - sum + ans[0];
-
         return ans;
     }
 };
