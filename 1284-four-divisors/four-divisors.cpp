@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int sumOfDivisorsOfNum(int n) {
+    int sumOfDivisorsOfNum(const int& n) {
         int sum = 0;
         int count = 0;
         for (int i = 1; i * i <= n; i++) {
