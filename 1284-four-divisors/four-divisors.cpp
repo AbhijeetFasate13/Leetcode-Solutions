@@ -11,6 +11,8 @@ public:
                     sum += n / i;
                     count++;
                 }
+                if (count > 4)
+                    return 0;
             }
         }
         return count == 4 ? sum : 0;
