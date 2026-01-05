@@ -1,13 +1,13 @@
 class Solution {
 public:
     long long maxMatrixSum(vector<vector<int>>& matrix) {
-        int neg = 0, min = INT_MAX;
+        int neg = 0, min = INT_MAX, absNum;
         long long sum = 0;
         for (const auto& row : matrix) {
             for (const auto& num : row) {
                 if (num < 0)
                     neg++;
-                int absNum = abs(num);
+                absNum = abs(num);
                 if (min > absNum)
                     min = absNum;
                 sum += absNum;
