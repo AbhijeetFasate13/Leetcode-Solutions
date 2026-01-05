@@ -1,7 +1,8 @@
 class Solution {
 public:
     long long maxMatrixSum(vector<vector<int>>& matrix) {
-        long long neg = 0, min = INT_MAX, sum = 0;
+        int neg = 0, min = INT_MAX;
+        long long sum = 0;
         for (const auto& row : matrix) {
             for (const auto& num : row) {
                 if (num < 0)
