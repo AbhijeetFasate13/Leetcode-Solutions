@@ -1,21 +1,19 @@
 class Solution {
-    void rec(const int& level, const vector<int>& nums, vector<int>& currSubset,
-             vector<vector<int>>& allSubsets) {
-        if (level == nums.size()) {
-            allSubsets.push_back(currSubset);
-            return;
-        }
-        rec(level + 1, nums, currSubset, allSubsets);
-        currSubset.push_back(nums[level]);
-        rec(level + 1, nums, currSubset, allSubsets);
-        currSubset.pop_back();
-    }
-
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> ans;
-        vector<int> container;
-        rec(0, nums, container, ans);
+        int n = nums.size();
+
+        for (int i = 0; i < (1 << n); i++) {
+            vector<int> curr;
+            for (int j = 0; j < n; j++) {
+                if (i & (1 << j)) {
+                    curr.push_back(nums[j]);
+                }
+            }
+            ans.push_back(curr);
+        }
+
         return ans;
     }
 };
