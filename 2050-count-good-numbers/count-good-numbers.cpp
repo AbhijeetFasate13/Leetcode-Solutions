@@ -1,25 +1,21 @@
 class Solution {
-    long long binpow(long long a, long long b, int mod = 1e9 + 7) {
+    const int mod = 1e9 + 7;
+    long long int binpow(long long a, long long int b) {
         a %= mod;
-        long long res = 1;
+        long long int res = 1;
         while (b) {
             if (b & 1) {
-                res *= a;
-                res %= mod;
+                res = (res * a) % mod;
             }
-            a *= a;
-            a %= mod;
-            b>>=1;
+            a = (a * a) % mod;
+            b >>= 1;
         }
         return res % mod;
     }
 
 public:
     int countGoodNumbers(long long n) {
-        long long a = binpow(5ll, (n + 1) / 2ll);
-        long long b = binpow(4ll, n / 2ll);
-        a *= b;
-        a %= 1000000007;
-        return a;
+        long long ans = (binpow(5, (n + 1) / 2) * binpow(4, n / 2)) % mod;
+        return ans;
     }
 };
