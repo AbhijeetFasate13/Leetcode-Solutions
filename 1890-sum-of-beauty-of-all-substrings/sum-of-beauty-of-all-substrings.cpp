@@ -1,31 +1,35 @@
 class Solution {
-    int beauty(const vector<int>& freq) {
-        int mx = 0, mn = INT_MAX;
-        for (int f : freq) {
-            if (f > 0) {
-                mx = max(mx, f);
-                mn = min(mn, f);
+    int calcBeauty(vector<int>& charFreq) {
+        int maxi = -1, mini = INT_MAX;
+        for (const auto& i : charFreq) {
+            if (i > 0) {
+                maxi = max(maxi, i);
+                mini = min(mini, i);
             }
         }
-        return mx - mn;
+        return maxi - mini;
+    }
+    int beautyForWindowSize(int windowSize, string s) {
+        int n = s.size();
+        vector<int> charFreq(26);
+        for (int i = 0; i < windowSize; i++) {
+            charFreq[s[i] - 'a']++;
+        }
+        int beauty = calcBeauty(charFreq);
+        for (int i = windowSize; i < n; i++) {
+            charFreq[s[i] - 'a']++;
+            charFreq[s[i - windowSize] - 'a']--;
+            beauty += calcBeauty(charFreq);
+        }
+        return beauty;
     }
 
 public:
     int beautySum(string s) {
-        int n = s.size();
-        int ans = 0;
-        for (int len = 3; len <= n; ++len) {
-            vector<int> freq(26, 0);
-            for (int i = 0; i < len; i++) {
-                freq[s[i] - 'a']++;
-            }
-            ans += beauty(freq);
-            for (int i = len; i < n; i++) {
-                freq[s[i] - 'a']++;
-                freq[s[i - len] - 'a']--;
-                ans += beauty(freq);
-            }
+        int sumOfBeauty = 0;
+        for (int len = 3; len <= s.size(); len++) {
+            sumOfBeauty += beautyForWindowSize(len, s);
         }
-        return ans;
+        return sumOfBeauty;
     }
 };
