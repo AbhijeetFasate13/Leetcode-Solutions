@@ -1,35 +1,37 @@
 class Solution {
-    unordered_map<char, int> mp;
-
+    unordered_map<string, int> mp;
 public:
     Solution() {
-        mp['I'] = 1;
-        mp['V'] = 5;
-        mp['X'] = 10;
-        mp['L'] = 50;
-        mp['C'] = 100;
-        mp['D'] = 500;
-        mp['M'] = 1000;
+        mp["I"] = 1;
+        mp["V"] = 5;
+        mp["X"] = 10;
+        mp["L"] = 50;
+        mp["C"] = 100;
+        mp["D"] = 500;
+        mp["M"] = 1000;
+        mp["IV"] = 4;
+        mp["IX"] = 9;
+        mp["XL"] = 40;
+        mp["XC"] = 90;
+        mp["CD"] = 400;
+        mp["CM"] = 900;
     }
+
     int romanToInt(string s) {
         int num = 0;
         int n = s.size();
+
         for (int i = 0; i < n; i++) {
-            if (i != n - 1 and s[i] == 'I' and
-                (s[i + 1] == 'V' or s[i + 1] == 'X')) {
-                num += s[i + 1] == 'X' ? 9 : 4;
-                i++;
-            } else if (i != n - 1 and s[i] == 'X' and
-                       (s[i + 1] == 'L' or s[i + 1] == 'C')) {
-                num += s[i + 1] == 'C' ? 90 : 40;
-                i++;
-            } else if (i != n - 1 and s[i] == 'C' and
-                       (s[i + 1] == 'D' or s[i + 1] == 'M')) {
-                num += s[i + 1] == 'M' ? 900 : 400;
-                i++;
-            } else {
-                num += mp[s[i]];
+            if (i != n - 1) {
+                string curr = s.substr(i, 2);
+                if (mp.find(curr) != mp.end()) {
+                    num += mp[curr];
+                    i++;
+                    continue;
+                }
             }
+            string single(1, s[i]);
+            num += mp[single];
         }
         return num;
     }
