@@ -6,8 +6,8 @@ public:
         sort(begin(vBars), end(vBars));
         int streakH = 1, streakV = 1, len = 1;
         for (int i = 1; i < hBars.size(); i++) {
-            if (hBars[i] == n + 2)
-                continue;
+            // if (hBars[i] == n + 2)
+            //     continue;
             if (hBars[i] == hBars[i - 1] + 1) {
                 len++;
             } else {
@@ -18,8 +18,8 @@ public:
         streakH = max(len, streakH);
         len = 1;
         for (int i = 1; i < vBars.size(); i++) {
-            if (vBars[i] == m + 2)
-                continue;
+            // if (vBars[i] == m + 2)
+            //     continue;
             if (vBars[i] == vBars[i - 1] + 1) {
                 len++;
             } else {
