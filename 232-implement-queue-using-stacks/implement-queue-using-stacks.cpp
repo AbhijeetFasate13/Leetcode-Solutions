@@ -1,30 +1,45 @@
 class MyQueue {
-    stack<int> temp1, temp2;
+    stack<int> data, removalHelper;
+    int front;
 
 public:
     MyQueue() {}
 
     void push(int x) {
-        while (!temp2.empty()) {
-            temp1.push(temp2.top());
-            temp2.pop();
-        }
-        temp1.push(x);
-        while (!temp1.empty()) {
-            temp2.push(temp1.top());
-            temp1.pop();
-        }
+        data.push(x);
+        if (data.size() == 1)
+            front = data.top();
     }
 
     int pop() {
-        int x = temp2.top();
-        temp2.pop();
-        return x;
+        if (data.empty())
+            return -1;
+        int sz = data.size();
+        for (int i = 0; i < sz - 1; i++) {
+            removalHelper.push(data.top());
+            data.pop();
+        }
+        int val = data.top();
+        data.pop();
+        if (sz == 1)
+            return val;
+        for (int i = 0; i < sz - 1; i++) {
+            if (i == 0) {
+                front = removalHelper.top();
+            }
+            data.push(removalHelper.top());
+            removalHelper.pop();
+        }
+        return val;
     }
 
-    int peek() { return temp2.top(); }
+    int peek() {
+        if (data.empty())
+            return -1;
+        return front;
+    }
 
-    bool empty() { return temp2.empty(); }
+    bool empty() { return data.empty(); }
 };
 
 /**
