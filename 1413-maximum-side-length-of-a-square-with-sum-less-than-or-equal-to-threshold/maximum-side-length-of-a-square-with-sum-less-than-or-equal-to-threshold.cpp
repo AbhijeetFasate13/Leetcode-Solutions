@@ -1,3 +1,9 @@
+static auto init = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
 class Solution {
     vector<vector<int>> prefix;
     int rows, cols;
