@@ -37,6 +37,9 @@ public:
                            temp[firstLeft] > temp[first] + temp[second]) {
                     badPairs++;
                 }
+                adjSums.erase({temp[firstLeft] + temp[first], firstLeft});
+                adjSums.insert(
+                    {temp[firstLeft] + temp[first] + temp[second], firstLeft});
             }
             if (secondRight < n) {
                 if (temp[secondRight] >= temp[second] &&
@@ -46,13 +49,6 @@ public:
                            temp[secondRight] >= temp[first] + temp[second]) {
                     badPairs--;
                 }
-            }
-            if (firstLeft >= 0) {
-                adjSums.erase({temp[firstLeft] + temp[first], firstLeft});
-                adjSums.insert(
-                    {temp[firstLeft] + temp[first] + temp[second], firstLeft});
-            }
-            if (secondRight < n) {
                 adjSums.erase({temp[second] + temp[secondRight], second});
                 adjSums.insert(
                     {temp[first] + temp[second] + temp[secondRight], first});
