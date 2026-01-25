@@ -41,15 +41,13 @@ public:
                 curr.push_back(words[i]);
                 temp -= words[i].size();
             } else {
-                justifiedText.push_back(
-                    processed(curr, maxWidth, false));
+                justifiedText.push_back(processed(curr, maxWidth, false));
                 curr.clear();
                 temp = maxWidth;
                 i--;
             }
         }
-        if (!curr.empty())
-            justifiedText.push_back(processed(curr, maxWidth, true));
+        justifiedText.push_back(processed(curr, maxWidth, true));
         return justifiedText;
     }
 };
