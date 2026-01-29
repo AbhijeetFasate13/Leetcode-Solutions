@@ -3,11 +3,12 @@ class Solution {
     void floydWarshall(vector<vector<int>>& adj) {
         for (int k = 0; k < 26; k++) {
             for (int i = 0; i < 26; i++) {
-                for (int j = 0; j < 26; j++) {
-                    if (adj[i][k] < INF && adj[k][j] < INF) {
-                        adj[i][j] = min(adj[i][j], adj[i][k] + adj[k][j]);
+                if (adj[i][k] < INF)
+                    for (int j = 0; j < 26; j++) {
+                        if (adj[k][j] < INF) {
+                            adj[i][j] = min(adj[i][j], adj[i][k] + adj[k][j]);
+                        }
                     }
-                }
             }
         }
     }
