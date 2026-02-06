@@ -1,22 +1,21 @@
 class Solution {
+    void deleteDuplicates(const vector<int>& nums, unordered_map<int, int>& mp,
+                          int& deletes) {
+        for (const auto& i : nums) {
+            if (mp.find(i) == mp.end())
+                mp[i]++;
+            else if (deletes)
+                deletes--;
+        }
+    }
+
 public:
     int maximumSetSize(vector<int>& nums1, vector<int>& nums2) {
         unordered_map<int, int> mp1, mp2;
         int n = nums1.size();
         int delete1 = n / 2, delete2 = n / 2;
-        for (const auto& i : nums1) {
-            if (mp1.find(i) == mp1.end())
-                mp1[i]++;
-            else if (delete1)
-                delete1--;
-        }
-
-        for (const auto& i : nums2) {
-            if (mp2.find(i) == mp2.end())
-                mp2[i]++;
-            else if (delete2)
-                delete2--;
-        }
+        deleteDuplicates(nums1, mp1, delete1);
+        deleteDuplicates(nums2, mp2, delete2);
         unordered_map<int, int> mp;
         for (const auto& i : mp1)
             mp[i.first] = i.second;
