@@ -59,10 +59,6 @@ public:
             } else {
                 currMentionedIds =
                     parseIds(event[2], status, numberOfUsers, stoi(event[1]));
-                // for (const auto& i : currMentionedIds) {
-                //     cout << i << " ";
-                // }
-                // cout << endl;
                 updateMentions(currMentionedIds, mentionsPerUser);
             }
         }
