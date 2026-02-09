@@ -11,19 +11,21 @@
  * };
  */
 class Solution {
-    long long prev;
-
-public:
-    Solution() { prev = LLONG_MIN; }
-    bool isValidBST(TreeNode* root) {
+    bool isValid(TreeNode* root, TreeNode*& prev) {
         if (!root)
             return true;
-        if (!isValidBST(root->left))
-            return false;
-        if (root->val <= prev) {
-            return false;
-        }
-        prev = root->val;
-        return isValidBST(root->right);
+        bool l = isValid(root->left, prev);
+        bool mid = true;
+        if (prev and prev->val >= root->val)
+            mid = false;
+        prev = root;
+        bool r = isValid(root->right, prev);
+        return l and r and mid;
+    }
+
+public:
+    bool isValidBST(TreeNode* root) {
+        TreeNode* prev = nullptr;
+        return isValid(root, prev);
     }
 };
