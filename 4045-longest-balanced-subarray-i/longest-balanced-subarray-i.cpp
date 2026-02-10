@@ -10,11 +10,8 @@ public:
                     odd[nums[j]]++;
                 else
                     even[nums[j]]++;
-
-                int len = j - i + 1;
-
-                if (len > maxLen && even.size() == odd.size())
-                    maxLen = len;
+                if (j - i + 1 > maxLen && even.size() == odd.size())
+                    maxLen = j - i + 1;
             }
         }
         return maxLen;
