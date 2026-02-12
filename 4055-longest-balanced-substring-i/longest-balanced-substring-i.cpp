@@ -9,7 +9,6 @@ class Solution {
             else if (sameFreq != i)
                 return false;
         }
-        cout << endl;
         return true;
     }
 
