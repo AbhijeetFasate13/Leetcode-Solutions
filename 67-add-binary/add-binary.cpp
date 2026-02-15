@@ -1,29 +1,30 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
-        if (a.size() < b.size()) {
+        int m = a.size(), n = b.size();
+        if (m < n) {
             swap(a, b);
+            swap(m, n);
         }
-        int sum = 0, carry = 0;
-        string addition;
-        reverse(a.begin(), a.end());
-        reverse(b.begin(), b.end());
-        for (int i = 0; i < b.size(); i++) {
-            int x = a[i] - '0', y = b[i] - '0';
-            sum = carry ^ x ^ y;
-            carry = ((carry + x + y) > 1);
-            addition.push_back(sum + '0');
+        int carry = 0;
+        int aPtr = m - 1, bPtr = n - 1;
+        while (aPtr >= 0 and bPtr >= 0) {
+            carry += a[aPtr] - '0';
+            carry += b[bPtr] - '0';
+            a[aPtr] = (carry % 2) + '0';
+            carry = (carry > 1);
+            aPtr--;
+            bPtr--;
         }
-        for (int i = b.size(); i < a.size(); i++) {
-            int x = a[i] - '0';
-            sum = carry ^ x;
-            carry = (carry + x) > 1;
-            addition.push_back(sum + '0');
+        while (aPtr >= 0) {
+            carry += a[aPtr] - '0';
+            a[aPtr] = (carry % 2) + '0';
+            carry = (carry > 1);
+            aPtr--;
         }
         if (carry) {
-            addition.push_back('1');
+            a = '1' + a;
         }
-        reverse(addition.begin(), addition.end());
-        return addition;
+        return a;
     }
 };
