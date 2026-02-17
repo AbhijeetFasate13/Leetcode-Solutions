@@ -28,8 +28,7 @@ public:
     }
 
     int getRandom() {
-        int n = randomSet.size();
-        return randomSet[rand() % n];
+        return randomSet[rand() % randomSet.size()];
     }
 };
 
