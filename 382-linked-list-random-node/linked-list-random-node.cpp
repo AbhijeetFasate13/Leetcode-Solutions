@@ -10,6 +10,7 @@
  */
 class Solution {
     vector<int> arr;
+
 public:
     Solution(ListNode* head) {
         while (head) {
@@ -18,7 +19,10 @@ public:
         }
     }
 
-    int getRandom() { return arr[rand() % arr.size()]; }
+    int getRandom() {
+        int idx = rand() % arr.size();
+        return arr[idx];
+    }
 };
 
 /**
