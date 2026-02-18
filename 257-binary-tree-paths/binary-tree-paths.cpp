@@ -29,7 +29,7 @@ class Solution {
         preorder(root->left, curr, ans);
         preorder(root->right, curr, ans);
 
-        curr.resize(len); // restore state safely
+        curr.resize(len);
     }
 
 public:
