@@ -11,11 +11,16 @@
  * };
  */
 class Solution {
-    void preorder(TreeNode* root, vector<int>& curr, vector<vector<int>>& ans) {
+    void preorder(TreeNode* root, string& curr, vector<string>& ans) {
         if (!root)
             return;
 
-        curr.push_back(root->val);
+        int len = curr.size();
+
+        if (!curr.empty())
+            curr += "->";
+
+        curr += to_string(root->val);
 
         if (!root->left && !root->right) {
             ans.push_back(curr);
@@ -24,29 +29,14 @@ class Solution {
         preorder(root->left, curr, ans);
         preorder(root->right, curr, ans);
 
-        curr.pop_back();
-    }
-
-    vector<string> transform(const vector<vector<int>>& arr) {
-        vector<string> ans;
-        for (const auto& v : arr) {
-            string curr;
-            for (int i = 0; i < v.size(); i++) {
-                if (i > 0) {
-                    curr += "->";
-                }
-                curr += to_string(v[i]);
-            }
-            ans.push_back(curr);
-        }
-        return ans;
+        curr.resize(len); // restore state safely
     }
 
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<vector<int>> ans;
-        vector<int> curr;
+        vector<string> ans;
+        string curr;
         preorder(root, curr, ans);
-        return transform(ans);
+        return ans;
     }
 };
