@@ -1,24 +1,27 @@
 class Solution {
-    int dp[100005][3][2];
-
-    int rec(int idx, int transactions, int stockBought, vector<int>& prices) {
-        if (idx == prices.size() || transactions == 2)
-            return 0;
-        if (dp[idx][transactions][stockBought] != -1)
-            return dp[idx][transactions][stockBought];
-        int pick;
-        if (stockBought) {
-            pick = prices[idx] + rec(idx + 1, transactions + 1, 0, prices);
-        } else {
-            pick = -prices[idx] + rec(idx + 1, transactions, 1, prices);
-        }
-        int notPick = rec(idx + 1, transactions, stockBought, prices);
-        return dp[idx][transactions][stockBought] = max(pick, notPick);
-    }
-
 public:
     int maxProfit(vector<int>& prices) {
-        memset(dp, -1, sizeof(dp));
-        return rec(0, 0, 0, prices);
+        int n = prices.size();
+        vector<vector<int>> curr(3, vector<int>(2, 0));
+        vector < vector<int>> prev(3, vector<int>(2, 0));
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int transactions = 0; transactions < 2; transactions++) {
+                for (int holding = 0; holding < 2; holding++) {
+                    if (holding) {
+                        curr[transactions][holding] =
+                            max(prices[i] + prev[transactions + 1][0],
+                                prev[transactions][1]);
+                    } else {
+                        curr[transactions][holding] =
+                            max(-prices[i] + prev[transactions][1],
+                                prev[transactions][0]);
+                    }
+                    prev = curr;
+                }
+            }
+        }
+
+        return curr[0][0];
     }
 };
