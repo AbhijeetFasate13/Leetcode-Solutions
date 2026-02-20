@@ -34,7 +34,7 @@ public:
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
         unordered_map<TreeNode*, TreeNode*> parents = getParents(root);
         queue<TreeNode*> q;
-        set<TreeNode*> visited;
+        unordered_set<TreeNode*> visited;
         q.push(target);
         while (k--) {
             int sz = q.size();
