@@ -11,24 +11,20 @@
  * };
  */
 class Solution {
-    int getHeight(TreeNode* root) {
+    int maxDepth(TreeNode* root) {
         if (!root)
             return 0;
-        int l = 0, r = 0;
-        if (root->left)
-            l = getHeight(root->left);
+        int l = maxDepth(root->left);
         if (l == -1)
             return -1;
-        if (root->right)
-            r = getHeight(root->right);
+        int r = maxDepth(root->right);
         if (r == -1)
             return -1;
         if (abs(l - r) > 1)
             return -1;
-
         return 1 + max(l, r);
     }
 
 public:
-    bool isBalanced(TreeNode* root) { return getHeight(root) != -1; }
+    bool isBalanced(TreeNode* root) { return maxDepth(root) != -1; }
 };
