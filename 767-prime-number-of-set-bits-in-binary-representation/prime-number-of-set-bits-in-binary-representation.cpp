@@ -1,14 +1,11 @@
 class Solution {
     bool isPrime(int n) {
-        if (n < 2)
+        if (n <= 1)
             return false;
-        if (n == 2)
-            return true;
-        for (int i = 2; i * i <= n; i++) {
-            if (n % i == 0)
-                return false;
-        }
-        return true;
+        if (n > 3 and (n % 6 != 1 and n % 6 != 5))
+            return false;
+        return n == 2 or n == 3 or n == 5 or n == 7 or n == 11 or n == 13 or
+               n == 17 or n == 19;
     }
 
 public:
