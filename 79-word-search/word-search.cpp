@@ -4,8 +4,8 @@ public:
                 vector<vector<char>>& given, vector<vector<bool>>& visited) {
         if (idx == cmp.size())
             return true;
-        int n = given.size(), m = given[0].size();
-        if (row < 0 || row >= n || col < 0 || col >= m || visited[row][col] ||
+        if (row < 0 || row == given.size() || col < 0 ||
+            col == given[0].size() || visited[row][col] ||
             given[row][col] != cmp[idx])
             return false;
 
