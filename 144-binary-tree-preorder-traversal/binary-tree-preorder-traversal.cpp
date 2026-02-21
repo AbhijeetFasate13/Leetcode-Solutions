@@ -11,20 +11,25 @@
  * };
  */
 class Solution {
-    void preorder(TreeNode* root, vector<int>& ans) {
-        if (root == nullptr)
-            return;
-        ans.push_back(root->val);
-        // assume this call, successfully inserts leftside tree into ans
-        preorder(root->left, ans);
-        // assume this call, successfully inserts rightside tree into ans
-        preorder(root->right, ans);
-    }
 
 public:
     vector<int> preorderTraversal(TreeNode* root) {
+        if (!root)
+            return {};
+        stack<TreeNode*> st;
+        st.push(root);
         vector<int> ans;
-        preorder(root, ans);
+        while (!st.empty()) {
+            TreeNode* curr = st.top();
+            st.pop();
+            ans.push_back(curr->val);
+            if (curr->right) {
+                st.push(curr->right);
+            }
+            if (curr->left) {
+                st.push(curr->left);
+            }
+        }
         return ans;
     }
 };
