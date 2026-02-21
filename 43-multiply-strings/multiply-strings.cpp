@@ -1,25 +1,56 @@
 class Solution {
+    void add(string& ans, string curr, int mult) {
+        while (mult--) {
+            curr.push_back('0');
+        }
+        int i = ans.size() - 1, j = curr.size() - 1;
+        int sum = 0, carry = 0;
+        while (i >= 0 && j >= 0) {
+            sum = (ans[i] - '0') + (curr[j] - '0') + carry;
+            ans[i] = (sum % 10) + '0';
+            carry = sum / 10;
+            i--;
+            j--;
+        }
+        while (i >= 0) {
+            sum = (ans[i] - '0') + carry;
+            ans[i] = (sum % 10) + '0';
+            carry = sum / 10;
+            i--;
+        }
+        while (j >= 0) {
+            sum = (curr[j] - '0') + carry;
+            ans = (char)((sum % 10) + '0') + ans;
+            carry = sum / 10;
+            j--;
+        }
+
+        if (carry)
+            ans = (char)(carry + '0') + ans;
+    }
+
 public:
-    string multiply(string num1, string num2) {
-        int n = num1.size();
-        int m = num2.size();
-        string result(n + m, '0');
+    string multiply(string nums1, string nums2) {
+        if (nums1 == "0" || nums2 == "0")
+            return "0";
+        int n = nums1.size(), m = nums2.size();
+        int mult = 0;
+        string result = "0";
         for (int i = n - 1; i >= 0; i--) {
             int carry = 0;
-            int a = num1[i] - '0';  
+            string curr;
             for (int j = m - 1; j >= 0; j--) {
-                int b = num2[j] - '0';
-                int product = (result[i + j + 1] - '0') + (a * b) + carry;
-                result[i + j + 1] = (product % 10) + '0';
-                carry = product / 10;
-            }       
-            result[i] = carry + '0';
+                int prod = (nums1[i] - '0') * (nums2[j] - '0') + carry;
+                curr = (char)((prod % 10) + '0') + curr;
+                carry = prod / 10;
+            }
+            if (carry)
+                curr = (char)(carry + '0') + curr;
+
+            add(result, curr, mult);
+            mult++;
         }
-        // Remove leading '0's
-        int i = 0;
-        while (i < n + m - 1 && result[i] == '0') {
-            i++;
-        }
-        return result.substr(i);
+
+        return result;
     }
 };
