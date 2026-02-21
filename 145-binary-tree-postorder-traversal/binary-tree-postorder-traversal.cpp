@@ -15,25 +15,29 @@ public:
     vector<int> postorderTraversal(TreeNode* root) {
         if (!root)
             return {};
-        stack<TreeNode*> st1, st2;
-        st1.push(root);
-
-        while (!st1.empty()) {
-            TreeNode* curr = st1.top();
-            st1.pop();
-            st2.push(curr);
-            if (curr->left) {
-                st1.push(curr->left);
-            }
-            if (curr->right) {
-                st1.push(curr->right);
-            }
-        }
-
+        stack<TreeNode*> st;
+        TreeNode* curr = root;
+        TreeNode* lastVisited = nullptr;
         vector<int> ans;
-        while (!st2.empty()) {
-            ans.push_back(st2.top()->val);
-            st2.pop();
+        // L R Root
+        while (curr or !st.empty()) {
+            if (curr) {
+                // L
+                st.push(curr);
+                curr = curr->left;
+            } else {
+                TreeNode* temp = st.top();
+                // R
+                if (temp->right and lastVisited != temp->right) {
+                    curr = temp->right;
+                }
+                // Root
+                else {
+                    lastVisited = temp;
+                    ans.push_back(temp->val);
+                    st.pop();
+                }
+            }
         }
         return ans;
     }
