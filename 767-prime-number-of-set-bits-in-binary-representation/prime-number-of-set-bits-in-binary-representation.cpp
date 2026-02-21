@@ -1,13 +1,22 @@
 class Solution {
+    bool isPrime(int n) {
+        if (n < 2)
+            return false;
+        if (n == 2)
+            return true;
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0)
+                return false;
+        }
+        return true;
+    }
+
 public:
     int countPrimeSetBits(int left, int right) {
-        vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19};
         int count = 0;
         for (int i = left; i <= right; i++) {
-            int numOfBits = __builtin_popcount(i);
-            if (binary_search(primes.begin(), primes.end(), numOfBits)) {
+            if (isPrime(__builtin_popcount(i)))
                 count++;
-            }
         }
         return count;
     }
