@@ -1,22 +1,24 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if (numRows == 1) {
+        if (numRows == 1)
             return s;
-        }
-        string zigZag;
+        vector<string> rows(numRows + 10);
+        int n = s.size();
         int modder = 2 * numRows - 2;
-        vector<string> rows(numRows);
-        int row;
-        for (int i = 0; i < s.size(); i++) {
-            row = i % modder;
-            if (row >= numRows)
-                row = modder - row;
-            rows[row].push_back(s[i]);
+        int sizeMinusOne = numRows - 1;
+        int idx;
+        for (int i = 0; i < n; i++) {
+            idx = i % modder;
+            if (idx > sizeMinusOne) {
+                idx = sizeMinusOne - (idx % sizeMinusOne);
+            }
+            rows[idx].push_back(s[i]);
         }
-        for (int i = 0; i < numRows; i++) {
-            zigZag += rows[i];
+        string ans;
+        for (const string& s : rows) {
+            ans += s;
         }
-        return zigZag;
+        return ans;
     }
 };
