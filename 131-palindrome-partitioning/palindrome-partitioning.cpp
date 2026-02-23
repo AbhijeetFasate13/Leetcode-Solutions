@@ -7,14 +7,12 @@ class Solution {
         }
         return true;
     }
-
-    void backtrack(string& s, int start, vector<string>& curr,
+    void backtrack(string s, int start, vector<string>& curr,
                    vector<vector<string>>& ans) {
         if (start == s.size()) {
             ans.push_back(curr);
             return;
         }
-
         for (int end = start; end < s.length(); end++) {
             string newWord = s.substr(start, end - start + 1);
             if (isPalindrome(newWord)) {
@@ -23,6 +21,7 @@ class Solution {
                 curr.pop_back();
             }
         }
+        return;
     }
 
 public:
