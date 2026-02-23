@@ -25,6 +25,7 @@ public:
         }
     }
     vector<string> letterCombinations(string digits) {
+        if(digits.empty())return {};
         string curr;
         vector<string> ans;
         backtrack(digits, 0, curr, ans);
