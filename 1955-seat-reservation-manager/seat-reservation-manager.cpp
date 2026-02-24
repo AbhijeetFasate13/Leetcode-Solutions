@@ -1,6 +1,5 @@
 class SeatManager {
     priority_queue<int, vector<int>, greater<int>> pq;
-    unordered_set<int> reserved;
 
 public:
     SeatManager(int n) {
@@ -12,14 +11,11 @@ public:
     int reserve() {
         int seat = pq.top();
         pq.pop();
-        reserved.insert(seat);
+
         return seat;
     }
 
-    void unreserve(int seatNumber) {
-        reserved.erase(seatNumber);
-        pq.push(seatNumber);
-    }
+    void unreserve(int seatNumber) { pq.push(seatNumber); }
 };
 
 /**
