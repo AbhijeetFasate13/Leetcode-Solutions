@@ -1,24 +1,14 @@
 class Solution {
-    vector<string> ans;
-    void pre() {
-        for (int i = 1; i < 20; i++) {
-            string inv = ans[i - 1];
-            for (auto& i : inv) {
-                if (i == '1')
-                    i = '0';
-                else
-                    i = '1';
-            }
-            reverse(inv.begin(), inv.end());
-            ans[i] = ans[i - 1] + '1' + inv;
-        }
-    }
-
 public:
-    Solution() {
-        ans.resize(20);
-        ans[0] = "0";
-        pre();
+    char findKthBit(int n, int k) {
+        if (n == 1 and k == 1)
+            return '0';
+        int total = pow(2, n) - 1;
+        if (k <= total / 2) {
+            return findKthBit(n - 1, k);
+        }
+        if (k == (total / 2) + 1)
+            return '1';
+        return findKthBit(n - 1, total - k + 1) == '1' ? '0' : '1';
     }
-    char findKthBit(int n, int k) { return ans[n - 1][k - 1]; }
 };
