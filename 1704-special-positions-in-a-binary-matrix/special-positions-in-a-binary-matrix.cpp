@@ -20,10 +20,20 @@ public:
     int numSpecial(vector<vector<int>>& mat) {
         int m = mat.size(), n = mat[0].size();
         int count = 0;
+        vector<bool> col(n, true);
+        bool rowColSafe;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (mat[i][j] == 1 and checkRowCol(i, j, m, n, mat)) {
-                    count++;
+                if (!col[j])
+                    continue;
+                if (mat[i][j] == 1) {
+                    rowColSafe = checkRowCol(i, j, m, n, mat);
+                    if (rowColSafe)
+                        count++;
+                    else {
+                        col[j] = false;
+                        break;
+                    }
                 }
             }
         }
