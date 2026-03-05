@@ -14,7 +14,8 @@ public:
             }
         }
         int time = 0;
-        vector<vector<int>> dir = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+        vector<int> dirX = {-1, 0, 1, 0};
+        vector<int> dirY = {0, -1, 0, 1};
         while (!q.empty()) {
             if (!freshOranges)
                 break;
@@ -23,7 +24,7 @@ public:
                 auto [x, y] = q.front();
                 q.pop();
                 for (int d = 0; d < 4; d++) {
-                    int xn = x + dir[d][0], yn = y + dir[d][1];
+                    int xn = x + dirX[d], yn = y + dirY[d];
                     if (xn < 0 or yn < 0 or xn == grid.size() or
                         yn == grid[0].size() or grid[xn][yn] == 0 or
                         grid[xn][yn] == 2)
