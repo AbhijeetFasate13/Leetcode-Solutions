@@ -6,19 +6,18 @@ public:
         int freshOranges = 0;
         for (int i = 0; i < grid.size(); i++) {
             for (int j = 0; j < grid[i].size(); j++) {
-                if (!grid[i][j])
-                    continue;
                 if (grid[i][j] == 2) {
                     q.push({i, j});
-                } else {
+                } else if (grid[i][j] == 1) {
                     freshOranges++;
                 }
             }
         }
-        int rot = 0, time = 0;
+        int time = 0;
         vector<vector<int>> dir = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
         while (!q.empty()) {
-            if(rot==freshOranges)break;
+            if (!freshOranges)
+                break;
             int sz = q.size();
             while (sz--) {
                 auto [x, y] = q.front();
@@ -30,13 +29,13 @@ public:
                         grid[xn][yn] == 2)
                         continue;
                     grid[xn][yn] = 2;
-                    rot++;
+                    freshOranges--;
                     q.push({xn, yn});
                 }
             }
             time++;
         }
-        if (rot != freshOranges)
+        if (freshOranges)
             return -1;
         return time;
     }
