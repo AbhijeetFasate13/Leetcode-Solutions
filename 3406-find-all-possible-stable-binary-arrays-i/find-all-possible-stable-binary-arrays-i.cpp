@@ -1,11 +1,10 @@
 class Solution {
     const int MOD = 1000000007;
-    vector<vector<vector<long long>>> dp;
 
 public:
     int numberOfStableArrays(int zero, int one, int limit) {
-        dp.resize(zero + 1,
-                  vector<vector<long long>>(one + 1, vector<long long>(2, 0)));
+        long long dp[zero + 1][one + 1][2];
+        memset(dp, 0, sizeof(dp));
         for (int i = 1; i <= min(zero, limit); i++) {
             dp[i][0][0] = 1;
         }
