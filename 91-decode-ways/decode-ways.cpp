@@ -1,29 +1,25 @@
 class Solution {
-    vector<int> dp;
-    bool belongsTo(int tens, int units, int l, int r) {
-        int num = tens * 10 + units;
-        return num >= l and num <= r;
-    }
-    int rec(int idx, const string& s) {
-        if (idx >= s.size()) {
+    int dp[101];
+
+    int rec(int i, const string& s) {
+        if (i >= s.size())
             return 1;
+        if (s[i] == '0')
+            return 0;
+        if (dp[i] != -1)
+            return dp[i];
+        int ans = rec(i + 1, s);
+        if (i + 1 < s.size()) {
+            int num = (s[i] - '0') * 10 + (s[i + 1] - '0');
+            if (num >= 10 && num <= 26)
+                ans += rec(i + 2, s);
         }
-        if (dp[idx] != -1) {
-            return dp[idx];
-        }
-        int curr = s[idx] - '0';
-        int next = idx != s.size() - 1 ? s[idx + 1] - '0' : -1;
-        int ways = 0;
-        ways += (curr != 0) ? rec(idx + 1, s) : 0;
-        if (next != -1) {
-            ways += belongsTo(curr, next, 10, 26) ? rec(idx + 2, s) : 0;
-        }
-        return dp[idx] = ways;
+        return dp[i] = ans;
     }
 
 public:
     int numDecodings(string s) {
-        dp.resize(s.size() + 1, -1);
+        memset(dp, -1, sizeof(dp));
         return rec(0, s);
     }
 };
