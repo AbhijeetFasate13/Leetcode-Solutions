@@ -4,7 +4,7 @@ public:
         int n = nums.size();
         if (n < 3)
             return -1;
-        map<int, vector<int>> mp;
+        unordered_map<int, vector<int>> mp;
         bool exists = false;
         for (int i = 0; i < n; i++) {
             mp[nums[i]].push_back(i);
