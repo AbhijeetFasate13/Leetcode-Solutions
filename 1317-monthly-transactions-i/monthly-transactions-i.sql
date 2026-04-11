@@ -1,5 +1,4 @@
-select to_char(trans_date,'YYYY-MM') as month,
-country,
+select to_char(trans_date,'YYYY-MM') as month, country,
 count(*) as trans_count,
 sum(case
 when state = 'approved' then 1 
