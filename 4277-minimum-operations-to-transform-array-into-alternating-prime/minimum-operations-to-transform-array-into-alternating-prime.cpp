@@ -1,5 +1,5 @@
 class Solution {
-    const int MAXM = 200005;
+    const int MAXM = 100005;
     vector<int> isPrime, nextPrime;
 
 public:
