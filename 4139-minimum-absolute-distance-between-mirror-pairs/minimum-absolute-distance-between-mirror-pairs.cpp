@@ -10,8 +10,9 @@ class Solution {
 
 public:
     int minMirrorPairDistance(vector<int>& nums) {
-        unordered_map<int, int> mp;
         int n = nums.size();
+        unordered_map<int, int> mp;
+        mp.reserve(2 * n);
         int minm = INT_MAX, rev;
         for (int i = 0; i < n; i++) {
             if (mp.count(nums[i])) {
