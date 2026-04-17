@@ -1,8 +1,11 @@
 class Solution {
     int reverse(int x) {
-        string num = to_string(x);
-        std::reverse(begin(num), end(num));
-        return stoi(num);
+        int num = 0;
+        while (x) {
+            num = num * 10 + x % 10;
+            x /= 10;
+        }
+        return num;
     }
 
 public:
