@@ -17,7 +17,6 @@ public:
                 }
                 timeA += waterDuration[j];
 
-                // Water first -> then land
                 int timeB = waterStartTime[j] + waterDuration[j];
                 if (timeB < landStartTime[i]) {
                     timeB = landStartTime[i];
