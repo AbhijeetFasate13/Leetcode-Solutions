@@ -3,11 +3,12 @@
  * @return {Function}
  */
 var compose = function (functions) {
-
+    const n = functions.length;
     return function (x) {
         let val = x;
-        functions.reverse();
-        functions.forEach((fn) => val = fn(val));
+        for (let i = n - 1; i >= 0; i--) {
+            val = functions[i](val);
+        }
         return val;
     }
 };
