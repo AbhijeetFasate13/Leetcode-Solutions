@@ -1,10 +1,9 @@
 class Solution {
-    int LOG;
     vector<vector<int>> rmq, rmxq;
 public:
     void buildSparse(const vector<int>& nums) {
         int n = nums.size();
-        LOG = log2(n) + 1;
+        int LOG = log2(n) + 1;
         rmq.assign(n, vector<int>(LOG));
         rmxq.assign(n, vector<int>(LOG));
         for (int i = 0; i < n; i++) {
