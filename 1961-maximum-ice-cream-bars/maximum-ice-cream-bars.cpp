@@ -1,29 +1,19 @@
 class Solution {
-    void countSort(vector<int>& costs) {
+public:
+    int maxIceCream(vector<int>& costs, int coins) {
         unordered_map<int, int> hash;
         int maxm = INT_MIN;
         for (const int& i : costs) {
             hash[i]++;
             maxm = max(maxm, i);
         }
-        int ptr = 0;
+        int count = 0;
         for (int i = 0; i <= maxm; i++) {
             if (!hash.count(i))
                 continue;
-            while (hash[i]--) {
-                costs[ptr++] = i;
-            }
-        }
-    }
-
-public:
-    int maxIceCream(vector<int>& costs, int coins) {
-        countSort(costs);
-        int count = 0;
-        for (const int& i : costs) {
-            if (coins - i >= 0) {
-                count++;
+            while (coins - i >= 0 and hash[i]--) {
                 coins -= i;
+                count++;
             }
         }
         return count;
