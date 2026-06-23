@@ -1,17 +1,39 @@
 class Solution {
 public:
-    static constexpr int MOD = 1000000007;
+    int mod = 1e9 + 7;
     int zigZagArrays(int n, int l, int r) {
-        int m = r - l + 1;
-        vector<int> dp(m, 1);
+        r -= l;
+        vector<vector<int>> prev_dp(r + 1, vector<int>(2, 0)),
+            curr_dp(r + 1, vector<int>(2, 0));
+        for (int j = 0; j <= r; j++) {
+            prev_dp[j][0] = j + 1;
+            prev_dp[j][1] = j + 1;
+        }
+        for (int i = 1; i < n; i++) {
 
-        for (int i = 2; i <= n; i++) {
-            reverse(dp.begin(), dp.end());
-            int sum = 0;
-            for (auto& d : dp)
-                sum = (sum + exchange(d, sum)) % MOD;
+            for (int j = 0; j <= r; j++) {
+                curr_dp[j][0] = 0;
+                curr_dp[j][1] = 0;
+            }
+
+            for (int j = 0; j <= r; j++) {
+                if (j == 0) {
+                    curr_dp[j][0] = (prev_dp[r][1] - prev_dp[j][1] + mod) % mod;
+                } else if (j == r) {
+                    curr_dp[j][1] = prev_dp[j - 1][0];
+                    curr_dp[j][1] = (curr_dp[j][1] + curr_dp[j - 1][1]) % mod;
+                    curr_dp[j][0] = curr_dp[j - 1][0];
+                } else {
+                    curr_dp[j][0] = (prev_dp[r][1] - prev_dp[j][1] + mod) % mod;
+                    curr_dp[j][0] = (curr_dp[j][0] + curr_dp[j - 1][0]) % mod;
+
+                    curr_dp[j][1] = prev_dp[j - 1][0];
+                    curr_dp[j][1] = (curr_dp[j][1] + curr_dp[j - 1][1]) % mod;
+                }
+            }
+            swap(prev_dp, curr_dp);
         }
 
-        return ((accumulate(dp.begin(), dp.end(), 0LL) % MOD) << 1) % MOD;
+        return (prev_dp[r][0] + prev_dp[r][1]) % mod;
     }
 };
