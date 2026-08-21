@@ -51,15 +51,15 @@ public:
         coins = reduceSet(coins);
         int n = coins.size();
         long long l = 0, r = 1e15;
-        while (l <= r) {
+        while (l + 1 < r) {
             long long m = l + (r - l) / 2;
             long long ans = check(m, coins);
             if (ans >= k) {
-                r = m - 1;
+                r = m;
             } else {
-                l = m + 1;
+                l = m;
             }
         }
-        return l;
+        return r;
     }
 };
