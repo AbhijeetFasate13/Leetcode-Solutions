@@ -50,7 +50,7 @@ public:
     long long findKthSmallest(vector<int>& coins, int k) {
         coins = reduceSet(coins);
         int n = coins.size();
-        long long l = 0, r = 1e15;
+        long long l = 0, r = 1ll*coins[0] * k + 1;
         while (l + 1 < r) {
             long long m = l + (r - l) / 2;
             long long ans = check(m, coins);
