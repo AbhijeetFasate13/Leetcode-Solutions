@@ -15,9 +15,8 @@ public:
             groups[id].push_back(sorted[i]);
             map[sorted[i]] = id;
         }
-
+        if(groups.size()==1)return sorted;
         vector<int> idx(groups.size(), 0);
-
         for (int i = 0; i < nums.size(); i++) {
             int cur = map[nums[i]];
             nums[i] = groups[cur][idx[cur]];
