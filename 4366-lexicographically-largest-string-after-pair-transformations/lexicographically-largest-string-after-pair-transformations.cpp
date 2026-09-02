@@ -1,4 +1,5 @@
 class Solution {
+    unordered_map<int, string> cache;
     int getHighestPower2(int x) { return floor(log2(x)); }
     string largestStringPossible(int x) {
         string ans;
@@ -7,8 +8,6 @@ class Solution {
             while (x > 0 and highestPowerOf2 > 25) {
                 x -= (1 << 25);
                 ans += 'z';
-                if (x == 0)
-                    break;
                 highestPowerOf2 = getHighestPower2(x);
             }
             ans += highestPowerOf2 + 'a';
@@ -22,7 +21,12 @@ public:
         int n = nums.size();
         vector<string> ans(n);
         for (int i = 0; i < n; i++) {
+            if (cache.find(nums[i]) != cache.end()) {
+                ans[i] = cache[nums[i]];
+                continue;
+            }
             ans[i] = largestStringPossible(nums[i]);
+            cache[nums[i]] = ans[i];
         }
         return ans;
     }
