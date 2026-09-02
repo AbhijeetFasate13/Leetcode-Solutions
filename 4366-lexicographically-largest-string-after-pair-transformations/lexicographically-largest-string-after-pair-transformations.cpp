@@ -1,33 +1,42 @@
 class Solution {
-    unordered_map<int, string> cache;
-    int getHighestPower2(int& x) { return floor(log2(x)); }
-    string largestStringPossible(int x) {
-        string ans;
-        while (x != 0) {
-            int highestPowerOf2 = getHighestPower2(x);
-            while (x > 0 and highestPowerOf2 > 25) {
-                x -= (1 << 25);
-                ans += 'z';
-                highestPowerOf2 = getHighestPower2(x);
+private:
+    unordered_map<int, string> memo;
+
+    int highestSetBit(int value) const {
+        return 31 - __builtin_clz(value);
+    }
+
+    string buildLargestString(int value) const {
+        string result;
+
+        while (value > 0) {
+            int highestBit = highestSetBit(value);
+
+            if (highestBit > 25) {
+                int zCount = value >> 25;
+                result.append(zCount, 'z');
+                value -= zCount << 25;
+                continue;
             }
-            ans += highestPowerOf2 + 'a';
-            x -= 1 << highestPowerOf2;
+
+            result += static_cast<char>('a' + highestBit);
+            value -= 1 << highestBit;
         }
-        return ans;
+
+        return result;
     }
 
 public:
-    vector<string> largestString(vector<int>& nums) {
-        int n = nums.size();
-        vector<string> ans(n);
-        for (int i = 0; i < n; i++) {
-            if (cache.find(nums[i]) != cache.end()) {
-                ans[i] = cache[nums[i]];
-                continue;
-            }
-            ans[i] = largestStringPossible(nums[i]);
-            cache[nums[i]] = ans[i];
+    vector<string> largestString(const vector<int>& nums) {
+        vector<string> result;
+        result.reserve(nums.size());
+        for (int value : nums) {
+            auto [iterator, inserted] = memo.try_emplace(
+                value,
+                buildLargestString(value)
+            );
+            result.push_back(iterator->second);
         }
-        return ans;
+        return result;
     }
 };
