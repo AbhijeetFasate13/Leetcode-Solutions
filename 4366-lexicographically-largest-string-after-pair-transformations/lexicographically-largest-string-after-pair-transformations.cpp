@@ -1,6 +1,6 @@
 class Solution {
     unordered_map<int, string> cache;
-    int getHighestPower2(int x) { return floor(log2(x)); }
+    int getHighestPower2(int& x) { return floor(log2(x)); }
     string largestStringPossible(int x) {
         string ans;
         while (x != 0) {
