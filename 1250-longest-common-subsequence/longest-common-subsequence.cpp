@@ -2,18 +2,23 @@ class Solution {
 public:
     int longestCommonSubsequence(string s, string t) {
         int m = s.size(), n = t.size();
-        vector<vector<unsigned long long>> dp(
-            m + 1, vector<unsigned long long>(n + 1));
+
+        vector<vector<int>> dp(2, vector<int>(n + 1, 0));
 
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
                 if (s[i - 1] == t[j - 1]) {
-                    dp[i][j] = dp[i - 1][j - 1] + 1;
-                } else {
-                    dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
+                    dp[i % 2][j] = dp[(i - 1) % 2][j - 1] + 1;
+                } 
+                else {
+                    dp[i % 2][j] = max(
+                        dp[i % 2][j - 1],
+                        dp[(i - 1) % 2][j]
+                    );
                 }
             }
         }
-        return dp[m][n];
+
+        return dp[m % 2][n];
     }
 };
