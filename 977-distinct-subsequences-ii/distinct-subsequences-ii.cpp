@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int distinctSubseqII(string s) {
+        int n = s.size();
+        const long long MOD = 1e9 + 7;
+
+        vector<long long> dp(n + 1, 0);
+        vector<int> lastSeen(26, -1);
+
+        dp[0] = 1;
+
+        for (int i = 1; i <= n; i++) {
+            int c = s[i - 1] - 'a';
+            dp[i] = (2 * dp[i - 1]) % MOD;
+            if (lastSeen[c] != -1) {
+                dp[i] = (dp[i] - dp[lastSeen[c]] + MOD) % MOD;
+            }
+            lastSeen[c] = i - 1;
+        }
+
+        return (dp[n] - 1 + MOD) % MOD;
+    }
+};
