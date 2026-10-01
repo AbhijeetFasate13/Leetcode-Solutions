@@ -1,23 +1,24 @@
 class Solution {
-    bool isOpening(char c) { return c == '(' or c == '{' or c == '['; }
-    bool isOpp(char curr, char prev) {
-        return (curr == ')' and prev == '(') or (curr == '}' and prev == '{') or
-               (curr == ']' and prev == '[');
+    bool isClosing(char& a, const char& b) {
+        if (a == '(' and b == ')')
+            return true;
+        if (a == '[' and b == ']')
+            return true;
+        if (a == '{' and b == '}')
+            return true;
+        return false;
     }
 
 public:
     bool isValid(string s) {
         stack<char> st;
-        int openCount = 0;
-        for (int i = 0; i < s.size(); i++) {
-            if (isOpening(s[i])) {
-                st.push(s[i]);
-                openCount++;
-            } else if (i != 0 and openCount and isOpp(s[i], st.top())) {
-                st.pop();
-                openCount--;
-            } else {
+        for (const char& c : s) {
+            if (c == '(' or c == '[' or c == '{')
+                st.push(c);
+            else if (st.empty() or !isClosing(st.top(), c)) {
                 return false;
+            } else {
+                st.pop();
             }
         }
         return st.empty();
