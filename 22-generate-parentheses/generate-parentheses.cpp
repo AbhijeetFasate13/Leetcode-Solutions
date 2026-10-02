@@ -1,5 +1,5 @@
 class Solution {
-    void backtrack(const int& n, int& open, int& close, string& curr,
+    void backtrack(const int& n, int open, int close, string& curr,
                    vector<string>& ans) {
         if (curr.size() == 2 * n) {
             if (open == close) {
@@ -7,16 +7,14 @@ class Solution {
             }
             return;
         }
-        curr.push_back('(');
-        open++;
-        backtrack(n, open, close, curr, ans);
-        open--;
-        curr.pop_back();
+        if (open < n) {
+            curr.push_back('(');
+            backtrack(n, open + 1, close, curr, ans);
+            curr.pop_back();
+        }
         if (close < open) {
             curr.push_back(')');
-            close++;
-            backtrack(n, open, close, curr, ans);
-            close--;
+            backtrack(n, open, close + 1, curr, ans);
             curr.pop_back();
         }
     }
@@ -25,8 +23,7 @@ public:
     vector<string> generateParenthesis(int n) {
         string curr;
         vector<string> ans;
-        int open = 0, close = 0;
-        backtrack(n, open, close, curr, ans);
+        backtrack(n, 0, 0, curr, ans);
         return ans;
     }
 };
