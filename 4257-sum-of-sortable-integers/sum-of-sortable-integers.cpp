@@ -1,6 +1,6 @@
 
 class Solution {
-
+    //KMP
     bool checkIfCyclicRotations(const vector<int>& a, const vector<int>& b,
                                 const int& start, const int& end) {
         int len = end - start;
