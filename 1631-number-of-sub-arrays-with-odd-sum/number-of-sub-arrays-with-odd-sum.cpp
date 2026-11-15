@@ -1,20 +1,21 @@
 class Solution {
+    const int mod = 1e9 + 7;
+
 public:
     int numOfSubarrays(vector<int>& arr) {
-        int n = arr.size();
         int runningSum = 0;
         int evenSums = 1, oddSums = 0;
         int total = 0;
-        const int mod = 1e9 + 7;
-        for (int i = 0; i < n; i++) {
-            runningSum += arr[i];
+        for (const int& num : arr) {
+            runningSum += num;
             if (runningSum & 1) {
-                total = (total + evenSums) % mod;
+                total += evenSums;
                 oddSums++;
             } else {
-                total = (total + oddSums) % mod;
+                total += oddSums;
                 evenSums++;
             }
+            total %= mod;
         }
         return total;
     }
